@@ -1,0 +1,2 @@
+# ddgs-mcp-server
+
