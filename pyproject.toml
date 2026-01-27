@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ddgs-mcp-server"
+version = "0.3.0"
+description = "DuckDuckGo Search MCP Server"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.0.0",
+    "duckduckgo-search>=6.0.0"
+]
+
+[project.scripts]
+ddgs-mcp-server = "ddgs_mcp_server.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ddgs_mcp_server"]
