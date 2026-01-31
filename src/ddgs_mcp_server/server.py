@@ -4,7 +4,7 @@ import logging
 from typing import Optional, Literal
 from mcp.server import Server
 import mcp.types as types
-from duckduckgo_search import DDGS
+from ddgs import DDGS
 
 # Logging Configuration
 logging.basicConfig(level=logging.INFO)
@@ -73,7 +73,7 @@ async def call_tool(name: str, arguments: dict) -> list[types.TextContent | type
             results = []
             if name == "search_text":
                 results = ddgs.text(
-                    keywords=query,
+                    query=query,
                     region=region,
                     safesearch=safesearch,
                     timelimit=timelimit,
@@ -82,7 +82,7 @@ async def call_tool(name: str, arguments: dict) -> list[types.TextContent | type
                 )
             elif name == "search_news":
                 results = ddgs.news(
-                    keywords=query,
+                    query=query,
                     region=region,
                     safesearch=safesearch,
                     timelimit=timelimit,

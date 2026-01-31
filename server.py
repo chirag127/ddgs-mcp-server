@@ -16,7 +16,7 @@ from mcp.server.sse import SseServerTransport
 import mcp.types as types
 
 # DDGS Import
-from duckduckgo_search import DDGS
+from ddgs import DDGS
 
 # Logging Configuration
 logging.basicConfig(level=logging.INFO)
@@ -121,17 +121,17 @@ async def call_tool(name: str, arguments: dict) -> list[types.TextContent | type
         with DDGS() as ddgs:
             results = []
             if name == "search_text":
-                results = ddgs.text(keywords=query, region=region, safesearch=safesearch, timelimit=timelimit, max_results=max_results)
+                results = ddgs.text(query=query, region=region, safesearch=safesearch, timelimit=timelimit, max_results=max_results)
             elif name == "search_images":
-                results = ddgs.images(keywords=query, region=region, safesearch=safesearch, timelimit=timelimit, max_results=max_results)
+                results = ddgs.images(query=query, region=region, safesearch=safesearch, timelimit=timelimit, max_results=max_results)
             elif name == "search_videos":
-                results = ddgs.videos(keywords=query, region=region, safesearch=safesearch, timelimit=timelimit, max_results=max_results)
+                results = ddgs.videos(query=query, region=region, safesearch=safesearch, timelimit=timelimit, max_results=max_results)
             elif name == "search_news":
-                results = ddgs.news(keywords=query, region=region, safesearch=safesearch, timelimit=timelimit, max_results=max_results)
+                results = ddgs.news(query=query, region=region, safesearch=safesearch, timelimit=timelimit, max_results=max_results)
             elif name == "search_books":
                 # Check for books method availability or fallback
                 if hasattr(ddgs, 'books'):
-                    results = ddgs.books(keywords=query, max_results=max_results)
+                    results = ddgs.books(query=query, max_results=max_results)
                 else:
                     return [types.TextContent(type="text", text="Error: 'books' search backend not available in this version of python-ddgs.")]
             else:
