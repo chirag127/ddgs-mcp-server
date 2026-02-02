@@ -4,8 +4,53 @@ A Model Context Protocol (MCP) server that provides DuckDuckGo Search capabiliti
 
 ## Features
 
-- **search_text**: advanced metasearch using `bing`, `brave`, `duckduckgo`, `google`, `mojeek`, `yahoo`, `yandex`, `wikipedia`.
+- **search_text**: Advanced metasearch using `bing`, `brave`, `duckduckgo`, `google`, `mojeek`, `yahoo`, `yandex`, `wikipedia`.
+  - **Full Content Extraction**: Optionally fetch complete page content (not just snippets) for comprehensive context.
 - **search_news**: Find latest updates, releases, and tech news.
+
+## Full Content Extraction
+
+For coding agents that need complete context from search results, enable full page content fetching:
+
+### Usage
+
+```json
+{
+  "query": "python async programming tutorial",
+  "fetch_full_content": true,
+  "max_content_length": 50000,
+  "max_results": 5
+}
+```
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `fetch_full_content` | boolean | `false` | Enable full page content extraction |
+| `max_content_length` | integer | `50000` | Maximum characters per page (when `fetch_full_content` is true) |
+
+### Response Structure
+
+When `fetch_full_content` is enabled, each result includes a `full_content` field:
+
+```json
+[
+  {
+    "title": "Python Async Programming Guide",
+    "href": "https://example.com/python-async",
+    "body": "Brief snippet from search results...",
+    "full_content": "Complete extracted article text with all paragraphs, code examples, and detailed explanations..."
+  }
+]
+```
+
+### Performance Notes
+
+- Content extraction adds ~1-3 seconds latency per page
+- Up to 5 pages are fetched concurrently to minimize total time
+- Failed fetches return `[Content extraction failed or blocked]` without breaking the search
+- Uses [Trafilatura](https://trafilatura.readthedocs.io/) for high-quality text extraction
 
 
 ## Installation & Usage
