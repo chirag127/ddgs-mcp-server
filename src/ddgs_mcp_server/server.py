@@ -204,7 +204,7 @@ async def call_tool(name: str, arguments: dict) -> list[types.TextContent | type
                 )
                 results = list(results) if results else []
 
-            return [types.TextContent(type="text", text=json.dumps(results, indent=2))]
+            return [types.TextContent(type="text", text=json.dumps(results, indent=2, ensure_ascii=False))]
 
     except Exception as e:
         logger.error(f"Error executing {name}: {e}")

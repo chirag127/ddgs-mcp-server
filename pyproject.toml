@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ddgs-mcp-server"
-version = "0.5.0"
+version = "0.5.1"
 description = "DuckDuckGo Search MCP Server with full page content extraction"
 readme = "README.md"
 requires-python = ">=3.10"
