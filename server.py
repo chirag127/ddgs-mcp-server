@@ -250,7 +250,7 @@ async def call_tool(name: str, arguments: dict) -> list[types.TextContent | type
             else:
                 raise ValueError(f"Unknown tool: {name}")
 
-            return [types.TextContent(type="text", text=json.dumps(results, indent=2))]
+            return [types.TextContent(type="text", text=json.dumps(results, indent=2, ensure_ascii=False))]
 
     except Exception as e:
         logger.error(f"Error executing {name}: {e}")
